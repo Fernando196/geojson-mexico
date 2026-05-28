@@ -1,0 +1,11 @@
+node_modules/
+*.shp
+*.dbf
+*.shx
+*.prj
+*.cpg
+*.qpj
+*_raw.geojson
+*.zip
+.DS_Store
+Thumbs.db

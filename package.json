@@ -1,0 +1,29 @@
+{
+  "name": "geojson-mexico",
+  "version": "0.1.0",
+  "description": "GeoJSONs de México con propiedades estandarizadas — estados, municipios, códigos postales y colonias listos para producción",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build:estados": "npx mapshaper \"$SHP_DIR/00ent.shp\" encoding=latin1 -proj wgs84 -simplify weighted keep-shapes 15% -o data/estados_raw.geojson format=geojson && node scripts/enrich.js data/estados_raw.geojson --layer estados --out data/estados.geojson && rm data/estados_raw.geojson",
+    "build:municipios": "npx mapshaper \"$SHP_DIR/00mun.shp\" encoding=latin1 -proj wgs84 -simplify weighted keep-shapes 8% -o data/municipios_raw.geojson format=geojson && node scripts/enrich.js data/municipios_raw.geojson --layer municipios --out data/municipios.geojson && rm data/municipios_raw.geojson",
+    "split:municipios": "node scripts/split-by-state.js data/municipios.geojson",
+    "split:estados": "node scripts/add-state-to-folders.js",
+    "validate:estados": "node scripts/validate.js data/estados.geojson --layer estados",
+    "validate:municipios": "node scripts/validate.js data/municipios.geojson --layer municipios",
+    "catalogs": "node scripts/generate-catalogs.js",
+    "process:all": "npm run build:estados && npm run build:municipios && npm run split:municipios && npm run split:estados && npm run validate:estados && npm run validate:municipios && npm run catalogs"
+  },
+  "keywords": ["geojson","mexico","estados","municipios","colonias","codigos-postales","inegi","cartografia","gis","mapas"],
+  "author": "Fernando196",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/Fernando196/geojson-mexico.git" },
+  "homepage": "https://github.com/Fernando196/geojson-mexico#readme",
+  "bugs": { "url": "https://github.com/Fernando196/geojson-mexico/issues" },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "fs-extra": "^11.3.5",
+    "mapshaper": "^0.7.21",
+    "shapefile": "^0.6.6"
+  }
+}
