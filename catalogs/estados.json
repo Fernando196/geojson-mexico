@@ -1,0 +1,130 @@
+[
+  {
+    "cve_ent": "01",
+    "nom_ent": "Aguascalientes"
+  },
+  {
+    "cve_ent": "02",
+    "nom_ent": "Baja California"
+  },
+  {
+    "cve_ent": "03",
+    "nom_ent": "Baja California Sur"
+  },
+  {
+    "cve_ent": "04",
+    "nom_ent": "Campeche"
+  },
+  {
+    "cve_ent": "05",
+    "nom_ent": "Coahuila"
+  },
+  {
+    "cve_ent": "06",
+    "nom_ent": "Colima"
+  },
+  {
+    "cve_ent": "07",
+    "nom_ent": "Chiapas"
+  },
+  {
+    "cve_ent": "08",
+    "nom_ent": "Chihuahua"
+  },
+  {
+    "cve_ent": "09",
+    "nom_ent": "Ciudad de México"
+  },
+  {
+    "cve_ent": "10",
+    "nom_ent": "Durango"
+  },
+  {
+    "cve_ent": "11",
+    "nom_ent": "Guanajuato"
+  },
+  {
+    "cve_ent": "12",
+    "nom_ent": "Guerrero"
+  },
+  {
+    "cve_ent": "13",
+    "nom_ent": "Hidalgo"
+  },
+  {
+    "cve_ent": "14",
+    "nom_ent": "Jalisco"
+  },
+  {
+    "cve_ent": "15",
+    "nom_ent": "México"
+  },
+  {
+    "cve_ent": "16",
+    "nom_ent": "Michoacán"
+  },
+  {
+    "cve_ent": "17",
+    "nom_ent": "Morelos"
+  },
+  {
+    "cve_ent": "18",
+    "nom_ent": "Nayarit"
+  },
+  {
+    "cve_ent": "19",
+    "nom_ent": "Nuevo León"
+  },
+  {
+    "cve_ent": "20",
+    "nom_ent": "Oaxaca"
+  },
+  {
+    "cve_ent": "21",
+    "nom_ent": "Puebla"
+  },
+  {
+    "cve_ent": "22",
+    "nom_ent": "Querétaro"
+  },
+  {
+    "cve_ent": "23",
+    "nom_ent": "Quintana Roo"
+  },
+  {
+    "cve_ent": "24",
+    "nom_ent": "San Luis Potosí"
+  },
+  {
+    "cve_ent": "25",
+    "nom_ent": "Sinaloa"
+  },
+  {
+    "cve_ent": "26",
+    "nom_ent": "Sonora"
+  },
+  {
+    "cve_ent": "27",
+    "nom_ent": "Tabasco"
+  },
+  {
+    "cve_ent": "28",
+    "nom_ent": "Tamaulipas"
+  },
+  {
+    "cve_ent": "29",
+    "nom_ent": "Tlaxcala"
+  },
+  {
+    "cve_ent": "30",
+    "nom_ent": "Veracruz"
+  },
+  {
+    "cve_ent": "31",
+    "nom_ent": "Yucatán"
+  },
+  {
+    "cve_ent": "32",
+    "nom_ent": "Zacatecas"
+  }
+]
