@@ -8,27 +8,26 @@ Cada capa tiene propiedades estandarizadas con las claves oficiales del INEGI, y
 
 ---
 
-## ✨ Características
-
-- ✅ Propiedades estandarizadas con claves oficiales INEGI en todas las capas
-- ✅ Cada municipio sabe a qué estado pertenece (`cve_ent`, `nom_ent`)
-- ✅ Cada colonia sabe su CP, municipio y estado
-- ✅ Archivos divididos por estado para cargas ligeras
-- ✅ Catálogos JSON sin geometría para dropdowns y lookups rápidos
-- ✅ Disponible vía CDN (jsDelivr), npm y descarga directa
-- ✅ Fuente oficial: INEGI Marco Geoestadístico 2023
-- ✅ Geometrías simplificadas para web (sin sacrificar forma)
-
----
-
 ## 📦 Capas disponibles
 
 | Capa | Features | Tamaño | Estado |
 |------|----------|--------|--------|
 | Estados | 32 | ~200 KB | ✅ Listo |
-| Municipios | 2,475 | ~8 MB | ✅ Listo |
-| Códigos postales | ~145,000 | por estado | 🔄 En proceso |
-| Colonias | ~98,000 | por estado | 🔄 En proceso |
+| Municipios | 2,478 | ~13 MB | ✅ Listo |
+| Códigos postales | ~145,000 | por estado | 🔜 Próximamente |
+| Colonias | ~98,000 | por estado | 🔜 Próximamente |
+
+---
+
+## ✨ Características
+
+- ✅ Propiedades estandarizadas con claves oficiales INEGI en todas las capas
+- ✅ Cada municipio sabe a qué estado pertenece (`cve_ent`, `nom_ent`)
+- ✅ Archivos divididos por estado para cargas ligeras
+- ✅ Catálogos JSON sin geometría para dropdowns y lookups rápidos
+- ✅ Disponible vía CDN (jsDelivr) y descarga directa
+- ✅ Fuente oficial: INEGI Marco Geoestadístico 2025
+- ✅ Geometrías simplificadas y reproyectadas a WGS84 para web
 
 ---
 
@@ -40,9 +39,7 @@ Todas las capas usan las mismas claves para que puedas hacer joins fácilmente:
 ```json
 {
   "cve_ent": "19",
-  "nom_ent": "Nuevo León",
-  "region": "Noreste",
-  "area_km2": 64220.06
+  "nom_ent": "Nuevo León"
 }
 ```
 
@@ -52,13 +49,12 @@ Todas las capas usan las mismas claves para que puedas hacer joins fácilmente:
   "cve_geo": "19039",
   "cve_ent": "19",
   "nom_mun": "Monterrey",
-  "nom_ent": "Nuevo León",
-  "area_km2": 325.72
+  "nom_ent": "Nuevo León"
 }
 ```
 > `cve_geo` = `cve_ent` + `cve_mun` (5 dígitos, clave oficial INEGI)
 
-### Códigos postales
+### Códigos postales *(próximamente)*
 ```json
 {
   "cp": "64000",
@@ -69,7 +65,7 @@ Todas las capas usan las mismas claves para que puedas hacer joins fácilmente:
 }
 ```
 
-### Colonias
+### Colonias *(próximamente)*
 ```json
 {
   "id_colonia": "1903901",
@@ -98,31 +94,14 @@ const res = await fetch('https://cdn.jsdelivr.net/gh/Fernando196/geojson-mexico@
 
 // Municipios de un estado (más ligero)
 const res = await fetch('https://cdn.jsdelivr.net/gh/Fernando196/geojson-mexico@main/by-state/19_nuevo_leon/municipios.geojson')
-```
 
-### npm
-
-```bash
-npm install geojson-mexico
-```
-
-```js
-import { estados, getMunicipios, getByEstado } from 'geojson-mexico'
-
-// GeoJSON completo de estados
-const estadosGeo = estados()
-
-// Municipios de Nuevo León (cve_ent: "19")
-const municipiosNL = getMunicipios('19')
-
-// Todos los datos de un estado
-const nuevoLeon = getByEstado('19')
-// → { municipios, codigos_postales, colonias }
+// Catálogo de municipios sin geometría
+const res = await fetch('https://cdn.jsdelivr.net/gh/Fernando196/geojson-mexico@main/catalogs/municipios.json')
 ```
 
 ### Descarga directa
 
-Ve a [Releases](https://github.com/Fernando196/geojson-mexico/releases) y descarga el zip del estado o capa que necesitas.
+Ve a [Releases](https://github.com/Fernando196/geojson-mexico/releases) o descarga el archivo directo desde `data/` o `by-state/`.
 
 ---
 
@@ -131,27 +110,24 @@ Ve a [Releases](https://github.com/Fernando196/geojson-mexico/releases) y descar
 ```
 geojson-mexico/
 ├── data/
-│   ├── estados.geojson          # 32 features, ~200 KB
-│   ├── municipios.geojson       # 2,475 features, ~8 MB
-│   ├── codigos_postales.geojson # (próximamente)
-│   └── colonias.geojson         # (próximamente)
+│   ├── estados.geojson          # 32 features
+│   └── municipios.geojson       # 2,478 features
 ├── by-state/
 │   ├── 01_aguascalientes/
-│   │   ├── municipios.geojson
-│   │   ├── codigos_postales.geojson
-│   │   └── colonias.geojson
+│   │   ├── estado.geojson       # polígono del estado
+│   │   └── municipios.geojson   # municipios del estado
 │   ├── 02_baja_california/
-│   │   └── ...
 │   └── ... (32 estados)
 ├── catalogs/
-│   ├── estados.json             # Solo nombres y claves, sin geometría
-│   ├── municipios.json
-│   └── codigos_postales.json
+│   ├── estados.json             # claves y nombres, sin geometría
+│   └── municipios.json          # claves y nombres, sin geometría
 ├── scripts/
-│   ├── enrich.js                # Enriquece properties de cualquier GeoJSON
-│   ├── simplify.js              # Reduce peso con mapshaper
-│   ├── split-by-state.js        # Parte el nacional en 32 archivos
-│   └── validate.js              # Valida propiedades y relaciones
+│   ├── enrich.js                # normaliza properties de cualquier GeoJSON
+│   ├── simplify.js              # reduce peso con mapshaper
+│   ├── split-by-state.js        # parte el nacional en 32 archivos
+│   ├── add-state-to-folders.js  # copia estado.geojson a cada carpeta
+│   ├── validate.js              # valida propiedades y relaciones
+│   └── generate-catalogs.js     # genera los JSON sin geometría
 └── package.json
 ```
 
@@ -181,22 +157,22 @@ L.geoJSON(municipios, {
 ### Filtrar municipios por estado
 
 ```js
-const res = await fetch('.../municipios.geojson')
+const res = await fetch('https://cdn.jsdelivr.net/gh/Fernando196/geojson-mexico@main/data/municipios.geojson')
 const municipios = await res.json()
 
 // Todos los municipios de Jalisco (cve_ent: "14")
 const jalisco = municipios.features.filter(f => f.properties.cve_ent === '14')
 ```
 
-### Lookup rápido con catálogo (sin cargar geometría)
+### Lookup rápido con catálogo
 
 ```js
-const res = await fetch('.../catalogs/municipios.json')
+const res = await fetch('https://cdn.jsdelivr.net/gh/Fernando196/geojson-mexico@main/catalogs/municipios.json')
 const catalogo = await res.json()
 // → [{ cve_geo: "19039", cve_ent: "19", nom_mun: "Monterrey", nom_ent: "Nuevo León" }, ...]
 
-// Buscar municipio por nombre
 const mty = catalogo.find(m => m.nom_mun === 'Monterrey')
+const municipiosNL = catalogo.filter(m => m.cve_ent === '19')
 ```
 
 ---
@@ -228,10 +204,10 @@ const mty = catalogo.find(m => m.nom_mun === 'Monterrey')
 
 | Capa | Fuente | Versión |
 |------|--------|---------|
-| Estados | INEGI Marco Geoestadístico | Dic 2023 |
-| Municipios | INEGI Marco Geoestadístico | Dic 2023 |
-| Códigos postales | SEPOMEX / INEGI | 2024 |
-| Colonias | INEGI DENUE + SEPOMEX | 2024 |
+| Estados | INEGI Marco Geoestadístico | 2025 |
+| Municipios | INEGI Marco Geoestadístico | 2025 |
+| Códigos postales | SEPOMEX | próximamente |
+| Colonias | INEGI / SEPOMEX | próximamente |
 
 ---
 
@@ -244,14 +220,14 @@ git clone https://github.com/Fernando196/geojson-mexico.git
 cd geojson-mexico
 npm install
 
-# Procesar un GeoJSON nuevo
-node scripts/enrich.js input.geojson --layer municipios
+# Validar propiedades
+node scripts/validate.js data/municipios.geojson --layer municipios
 
 # Partir por estado
 node scripts/split-by-state.js data/municipios.geojson
 
-# Validar propiedades
-node scripts/validate.js data/municipios.geojson
+# Generar catálogos
+node scripts/generate-catalogs.js
 ```
 
 ---
